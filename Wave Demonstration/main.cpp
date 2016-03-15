@@ -14,7 +14,7 @@ using namespace std;
 
 int SCREEN_WIDTH = 500; //Width of the screen
 int SCREEN_HEIGHT = 500; //height of the screen
-char *WindowName = "Hello OpenGL"; //Name of the window
+char *WindowName = "Waves"; //Name of the window
 double dim = 2; //dimension for viewing triangle
 int time = 10; //set the sleep Time
 
