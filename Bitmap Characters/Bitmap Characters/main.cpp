@@ -10,7 +10,7 @@ Happy Coding
 #include<cstdio>
 #include<iostream>
 #include<freeglut.h>
-#include"glutBitmapFunction.h"
+
 using namespace std;
 
 int SCREEN_WIDTH = 500; //Width of the screen
@@ -20,11 +20,11 @@ double dim = 2; //dimension for viewing triangle
 
 bool init()
 {
-	
+
 	glClearColor(0, 0, 0, 1); //set the backgroung to black
-	 
+
 	glMatrixMode(GL_MODELVIEW); //loading ModelView Matrix
-	glLoadIdentity(); 
+	glLoadIdentity();
 
 	GLenum error = glGetError(); //Check for the error
 
@@ -42,18 +42,15 @@ void render() //display function
 {
 	glClear(GL_COLOR_BUFFER_BIT); //resetting the screen
 	glLoadIdentity(); //load identity matrix to model view
-	glColor3f(0, 1, 1);
-	printBitmap("HELLO OPENGL", GLUT_BITMAP_HELVETICA_18, -0.5, 0.5);
 
-	glColor3f(0, 1, 0);
-	printBitmap("HAPPY CODING", GLUT_BITMAP_HELVETICA_18, -0.5, 0);
+
 
 	glFlush(); //put everything to screen
 	glutSwapBuffers();//swapping the two buffers "Front and Back"
 }
 
 
- 
+
 void reshape(int w, int h) //function to call when the screen is reshaped
 {
 	double w2h = (h> 0) ? (double)w / h : 1;
@@ -61,7 +58,7 @@ void reshape(int w, int h) //function to call when the screen is reshaped
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	
+
 	glOrtho(-dim*w2h, +dim*w2h, -dim, +dim, -dim, +dim); //set the orthogonal view for the view port
 
 	glMatrixMode(GL_MODELVIEW);
@@ -70,16 +67,16 @@ void reshape(int w, int h) //function to call when the screen is reshaped
 }
 
 
-int main(int argc,char*argv[])
+int main(int argc, char*argv[])
 {
 	glutInit(&argc, argv); //initialise glut
-	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB); //setting the Display mode
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); //setting the Display mode
 	glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT); //Setting the window size
 	glutCreateWindow(WindowName);//Setting the name of the window
 
 	if (!init()) //check for the error
 	{
-		cout << "Error"<<endl;
+		cout << "Error" << endl;
 		return -1;
 	}
 

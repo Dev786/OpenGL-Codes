@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{1BA9C70C-616A-4DE6-A51B-4BBAF0131C5A}</ProjectGuid>
+    <ProjectGuid>{11C2A3DB-1050-4939-9C21-3FB6BF1391EE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>HelloOpenGL</RootNamespace>
+    <RootNamespace>BitmapCharacters</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,9 +147,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="glutBitmapFunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
