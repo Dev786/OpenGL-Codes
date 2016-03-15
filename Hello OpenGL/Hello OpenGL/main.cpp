@@ -2,7 +2,7 @@
 I am using free glut Library
 Its a basic program to show how to set the openGL Window and some basic function
 
-Happy Coding
+Happy Coding .....
 */
 
 
