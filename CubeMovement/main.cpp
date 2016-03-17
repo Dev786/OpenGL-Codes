@@ -124,7 +124,7 @@ void reshape(int w, int h) //function to call when the screen is reshaped
 	glOrtho(-w,w, h, -h, -1000, 1000);
 
 	glMatrixMode(GL_MODELVIEW);
-	glEnable(GL_DEPTH_TEST);
+glEnable(GL_DEPTH_TEST);
 	glDisable(GL_LINE_SMOOTH);
 	glDisable(GL_POLYGON_SMOOTH);
 	glEnable(GL_MULTISAMPLE);
