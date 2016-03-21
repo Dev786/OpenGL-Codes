@@ -81,7 +81,8 @@ bool init()
 	glDisable(GL_LINE_SMOOTH);
 	glDisable(GL_POLYGON_SMOOTH);
 	glEnable(GL_MULTISAMPLE);
-
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 
 	GLenum error = glGetError(); //Check for the error
 
@@ -102,8 +103,14 @@ void render() //display function
 	
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT); //resetting the screen
 	glLoadIdentity(); //load identity matrix to model view
+
+
+	GLfloat color[] = { 1,0,0,1 };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, color);
+
 	glColor3f(1, 0, 0);
 	c.drawCube();
+	glFlush();
 	glutSwapBuffers();//swapping the two buffers "Front and Back"
 
 }
@@ -124,7 +131,7 @@ void reshape(int w, int h) //function to call when the screen is reshaped
 	glOrtho(-w,w, h, -h, -1000, 1000);
 
 	glMatrixMode(GL_MODELVIEW);
-glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_LINE_SMOOTH);
 	glDisable(GL_POLYGON_SMOOTH);
 	glEnable(GL_MULTISAMPLE);
