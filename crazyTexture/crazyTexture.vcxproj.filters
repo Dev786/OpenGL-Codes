@@ -15,13 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LTexture.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="loadImage.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="initialiseArray.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

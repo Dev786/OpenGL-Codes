@@ -7,8 +7,11 @@ Happy Coding .....
 
 
 #include<stdlib.h>
+#include<il.h>
+#include<ilu.h>
 #include<cstdio>
 #include<iostream>
+#include<conio.h>
 #include<freeglut.h>
 #include "LTexture.h"
 using namespace std;
@@ -39,12 +42,23 @@ bool init()
 
 	//Enable texturing
 	glEnable(GL_TEXTURE_2D);
-
 	//Check for error
 	GLenum error = glGetError();
 	if (error != GL_NO_ERROR)
 	{
 		printf("Error initializing OpenGL! %s\n", gluErrorString(error));
+		_getch();
+		return false;
+	}
+
+	ilInit();
+	ilClearColour(255, 255, 255, 000);
+
+	//Check for error
+	ILenum ilError = ilGetError();
+	if (ilError != IL_NO_ERROR)
+	{
+		printf("Error initializing DevIL! %s\n", iluErrorString(ilError));
 		return false;
 	}
 
@@ -81,13 +95,15 @@ bool loadMedia()
 		}
 	}
 
-		if (!gCheckerBoardTexture.LoadTextureFromPixel32(checkerBoard, CHECKERBOARD_WIDTH, CHECKERBOARD_HEIGHT))
-		{
-			printf("Unable to load checkerboard texture!\n");
-			return false;
-		}
+	//if (!gCheckerBoardTexture.getImageFromPixel32(checkerBoard, CHECKERBOARD_WIDTH, CHECKERBOARD_HEIGHT))
+		//return false;
 
-		return true;
+	if(gCheckerBoardTexture.loadTextureFromFile("dr.jpg"));
+	return true;
+
+	return false;
+
+		
 	}
 
 
@@ -98,7 +114,7 @@ void render()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//Calculate centered offsets
-	
+
 	//Render checkerboard texture
 	gCheckerBoardTexture.render(SCREEN_WIDTH/2,SCREEN_HEIGHT/2);
 
@@ -135,11 +151,13 @@ int main(int argc, char*argv[])
 	if (!init()) //check for the error
 	{
 		cout << "Error" << endl;
+		_getch();
 		return -1;
 	}
 	if (!loadMedia())
 	{
 		printf("Unable to load media!\n");
+		_getch();
 		return 2;
 	}
 	glutDisplayFunc(render);  //register display func

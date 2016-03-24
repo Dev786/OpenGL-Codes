@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5A760203-C5A8-4E2B-8465-411150EC8C09}</ProjectGuid>
+    <ProjectGuid>{D0DC28DF-7429-4FA4-89A6-2DD0B48E7BA5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>texture</RootNamespace>
+    <RootNamespace>crazyTexture</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,10 +147,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LTexture.h" />
+    <ClInclude Include="initialiseArray.h" />
+    <ClInclude Include="loadImage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
