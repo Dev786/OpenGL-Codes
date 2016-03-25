@@ -58,7 +58,7 @@ void push()
 		cin >> a[tot].c;
 		cout << endl;
 		show();
-		
+
 	}
 }
 
@@ -71,7 +71,7 @@ void show()
 
 	glPushMatrix();
 	glTranslatef(0, -200, 0);
-	
+
 	int k = 0;
 
 	for (int i = 0; i <= tot; i++) {
@@ -79,7 +79,7 @@ void show()
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glBegin(GL_POLYGON);
 		glVertex2f(-100, k);
-		glVertex2f(100,	k );
+		glVertex2f(100, k);
 		glVertex2f(100, k + 50);
 		glVertex2f(-100, k + 50);
 		glEnd();
@@ -92,9 +92,9 @@ void show()
 		}
 
 		k += 50;
-		
-		
-		
+
+
+
 
 	}
 
@@ -138,12 +138,14 @@ void render() //display function
 		{
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, c[i]);
 		}
+		glFlush();
 		glutSwapBuffers();
 
 	}
 
 	else
 	{
+		glFlush();
 		show();
 	}
 }
@@ -152,7 +154,7 @@ void render() //display function
 
 void reshape(int w, int h) //function to call when the screen is reshaped
 {
-	
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, w, h); //setting the viewport i.e. where the primitive should be displayed
@@ -199,5 +201,3 @@ int main(int argc, char*argv[])
 
 	return 0;
 }
-
-
