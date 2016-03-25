@@ -180,9 +180,7 @@ void keyBoard(unsigned char key, int x, int y)
 
 int main(int argc, char*argv[])
 {
-
-
-
+	//Main function
 	glutInit(&argc, argv); //initialise glut
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); //setting the Display mode
 	glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT); //Setting the window size
