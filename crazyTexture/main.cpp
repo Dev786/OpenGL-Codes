@@ -23,6 +23,7 @@ const string  imageName[65] = { "tex.jpg","1.jpg" , "2.jpg" , "3.jpg" , "4.jpg" 
 int SCREEN_HEIGHT = 800;
 int SCREEN_WIDTH = 800;
 
+
 bool init()
 {
 	glMatrixMode(GL_PROJECTION);
