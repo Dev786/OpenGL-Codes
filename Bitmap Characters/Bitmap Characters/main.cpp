@@ -43,10 +43,14 @@ void render() //display function
 	glClear(GL_COLOR_BUFFER_BIT); //resetting the screen
 	glLoadIdentity(); //load identity matrix to model view
 
+	char *c = "DEVASHISH";
 
+	glColor3f(1, 0, 0);
+	glRasterPos2f(100, 250);
+	for (int i = 0; i < 9; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, c[i]);
 
-	glFlush(); //put everything to screen
-	glutSwapBuffers();//swapping the two buffers "Front and Back"
+	glFlush();
 }
 
 
@@ -59,7 +63,7 @@ void reshape(int w, int h) //function to call when the screen is reshaped
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	glOrtho(-dim*w2h, +dim*w2h, -dim, +dim, -dim, +dim); //set the orthogonal view for the view port
+	glOrtho(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, -100, 100); //set the orthogonal view for the view port
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -70,7 +74,7 @@ void reshape(int w, int h) //function to call when the screen is reshaped
 int main(int argc, char*argv[])
 {
 	glutInit(&argc, argv); //initialise glut
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); //setting the Display mode
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB); //setting the Display mode
 	glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT); //Setting the window size
 	glutCreateWindow(WindowName);//Setting the name of the window
 

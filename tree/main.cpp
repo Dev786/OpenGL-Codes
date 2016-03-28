@@ -2,13 +2,13 @@
 #include<freeglut.h>
 #include<math.h>
 
-int SCREEN_WIDTH = 500;
-int SCREEN_HEIGHT = 500;
+int SCREEN_WIDTH = 1000;
+int SCREEN_HEIGHT = 1000;
 
-float theta = 80;
+float theta = 45;
 float dl = 20;
-float x = 250, y = 80;
-float length = 100;
+float x = 500, y = 80;
+float length = 200;
 
 bool init()
 {
@@ -36,13 +36,14 @@ bool init()
 }
 
 
-void tree(float xm ,float ym,float length,int n)
+void tree(float xm ,float ym,float length,int theta)
 {
 	glLoadIdentity();
 
-	if (length < 1)
+	if (length < 10)
 		return;
 
+	theta += 5;
 	//first branch
 	float theta1 = 90 - (theta / 2);
 	float theta2 = 90 + (theta / 2);
@@ -74,8 +75,8 @@ void tree(float xm ,float ym,float length,int n)
 
 	Sleep(100);
 
-	tree(x1, y1, length - dl, n - 1);
-	tree(x2, y2, length - dl, n - 1);
+	tree(x1, y1, length - dl, theta+10);
+	tree(x2, y2, length - dl, theta+10);
 	
 	
 
@@ -88,10 +89,10 @@ void render()
 
 	glBegin(GL_LINES);
 	glVertex2f(x, y);
-	glVertex2f(250, 40);
+	glVertex2f(500, 40);
 	glEnd();
 
-	tree(x, y, length, 6);
+	tree(x, y, length, 30);
 }
 
 
