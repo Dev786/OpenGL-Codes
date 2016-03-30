@@ -78,19 +78,13 @@ public:
 		void checkCollision(position bullet)
 		{
 		
-			int bX = (int)(SCREEN_WIDTH/4 - bullet.x);
-			int bY = (int)(SCREEN_HEIGHT/4 - bullet.y);
+			float distB = sqrt(pow((p.x - bullet.x), 2) + pow((p.y - bullet.y), 2));
+			std::cout << distB << std::endl;
 
-			std::cout << "\nBullet: " << bX << " " << bY<<std::endl;
-			std::cout << "\nenemy: " << p.x << " " << p.y << std::endl;
-			
-			glPushMatrix();
-			
-			if ((int)bullet.x == (int)p.x&& (int)bullet.y == (int)p.y)
+			if (distB == 20)
 			{
-				std::cout << "\nCollision Detected"<<std::endl;
 				dead = true;
-			}		
+			}
 		}
 };
 
@@ -287,7 +281,7 @@ void render()
 	drawGun();
 	update();
 	glFlush();
-//	e.update(-1,bullet[i]);
+	e.update(-1,bullet[i]);
 	Sleep(10);
 	glutPostRedisplay();
 	glFlush();
@@ -299,7 +293,7 @@ void render()
 
 void loop()
 {
-	//update();
+	update();
 	render();
 }
 

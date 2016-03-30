@@ -6,9 +6,9 @@ int SCREEN_WIDTH = 1000;
 int SCREEN_HEIGHT = 1000;
 
 float theta = 45;
-float dl = 20;
+float dl = 10;
 float x = 500, y = 80;
-float length = 200;
+float length = 100;
 
 bool init()
 {

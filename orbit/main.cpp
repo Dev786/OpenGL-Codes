@@ -2,12 +2,12 @@
 #include"gravity.h"
 #include<conio.h>
 
-int SCREEN_WIDTH = 500;
-int SCREEN_HEIGHT = 500;
+int SCREEN_WIDTH = 1000;
+int SCREEN_HEIGHT = 1000;
 
 
-positionV sun(250, 250, 0, 0,8000);
-positionV earth(350, 350, 150,1, 1);
+positionV sun(500, 500, 0, 0,8000);
+positionV earth(500, 350, 150,1, 1);
 
 bool init()
 {
