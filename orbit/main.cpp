@@ -7,7 +7,7 @@ int SCREEN_HEIGHT = 1000;
 
 
 positionV sun(500, 500, 0, 0,8000);
-positionV earth(500, 350, 150,1, 1);
+positionV earth(500, 600,30,2,1);
 
 bool init()
 {

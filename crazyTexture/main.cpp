@@ -109,6 +109,12 @@ void render()
 			text[i].reset();
 			text[i].render();
 		}
+
+		for (int i = 1; i <= 56; i++)
+		{
+			text[i].render();
+		}
+		glFlush();
 		glutSwapBuffers();
 		Sleep(1000);
 		i = 0;

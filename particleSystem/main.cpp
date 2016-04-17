@@ -1,134 +1,192 @@
-#include<stdlib.h>
 #include<freeglut.h>
 
-int SCREEN_HEIGHT = 0;
-int SCREEN_WIDTH = 0;
-class particles
+#define MAX_PARTICLES 1000
+
+float slowDown = 1.0f;
+float xspeed;
+float yspeed;
+GLuint loop;
+GLuint col;
+GLuint delay;
+GLuint zoom = 4.0f;
+typedef struct
 {
-public: 
-	double x;
-	double y;
-
-	float red;
-	float gree;
-	float blue;
-
+	bool active;
 	float life;
+	float fade;
+	float r;
+	float g;
+	float b;
 
-	float speedY;
-	float speedX;
-};
+	float x;
+	float y;
+	float z;
 
-particles particle[10000];
+	float xi;
+	float yi;
+	float zi;
 
-float seed = 0;
-float r = 0;
-float g = 0;
-float b = 0;
-int life = 0;
+	float xg;
+	float yg;
+	float zg;
+}particles;
 
-void init()
+particles particle[MAX_PARTICLES];
+
+static GLfloat colors[12][3] =    //Rainbow Of Colors 
+{ {1.0f,0.5f,0.5f},{1.0f,0.75f,0.5f},{1.0f,1.0f,0.5f},{0.75f,1.0f,0.5f},  {0.5f,1.0f,0.5f},{0.5f,1.0f,0.75f},{0.5f,1.0f,1.0f},{0.5f,0.75f,1.0f},  {0.5f,0.5f,1.0f},{0.75f,0.5f,1.0f},{1.0f,0.5f,1.0f},{1.0f,0.5f,0.75f} };
+
+
+bool init()
 {
+	glClearColor(1, 1, 1, 1);
 
-	for (int i = 0; i < 1000; i++)
-	{
-
-		particle[i].speedY = float(rand() % 3);
-		particle[i].speedX = float(rand() % 3);
-		particle[i].x = float(rand() % 500 );
-		particle[i].y = float(rand() % 500);
-		particle[i].life = 1;
-
-	}
-	glClearColor(0, 0, 0, 1);
-	glMatrixMode(GL_PROJECTION);
+	glMatrixMode(GL_PROJECTION);	
 	glLoadIdentity();
 
-
 	glViewport(0, 0, 500, 500);
-	glOrtho(-500, 500, -500, 500, -100, 100);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glOrtho(-2, 2, -2, 2, 10, -10);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	glShadeModel(GL_SMOOTH);
+	glClearDepth(1.0f);
+	//glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	//glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	//glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+
+
+	for (loop = 0; loop < MAX_PARTICLES; loop++);
+	{
+		particle[loop].active = true;
+		particle[loop].life = 1.0f;
+		particle[loop].fade = float(rand() % 100) / 1000.0f + 0.003f;
+	
+		particle[loop].r = colors[(loop + 1) / (MAX_PARTICLES / 12)][0];
+		particle[loop].g = colors[(loop + 1) / (MAX_PARTICLES / 12)][1];
+		particle[loop].b = colors[(loop + 1) / (MAX_PARTICLES / 12)][2];
+
+		particle[loop].xi = float((rand() % 50) - 26.0f) * 10.0f;
+		particle[loop].yi = float((rand() % 50) - 25.0f) * 10.0f;
+		particle[loop].zi = float((rand() % 50) - 25.0f) * 10.0f;
+
+		particle[loop].xg = 0.0f;
+		particle[loop].yg = -0.8f;
+		particle[loop].zg = 0.0f;
+	}
+
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	return false;
+
+	return true;
 }
 
 void reshape(int w, int h)
 {
-	SCREEN_WIDTH = w;
-	SCREEN_HEIGHT = h;
-
-	glClearColor(0, 0, 0, 1);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	glViewport(0, 0, w, h );
-	glOrtho(-w, w, -h, h, -100, 100);
+	
+	glViewport(0, 0, 500, 500);
+	glOrtho(-2, 2, -2, 2, 10, -10);
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	
 }
 
 void render()
 {
-	int i = 0;
-	do
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+
+	/*for (loop = 0; loop < MAX_PARTICLES; loop++)
 	{
-		srand(seed);
-		seed += 0.1f,
-		r += 0.1;
-		b += 0.2;
-		g += 0.3;
-
-		if (r > 1.0f)
+		if (particle[loop].active)
 		{
-			r = float(rand() % 2) - 0.7;
+
+			float x = particle[loop].x;
+			float y = particle[loop].y;
+			float z = particle[loop].z + zoom;
+
+			glColor4f(particle[loop].r, particle[loop].g, particle[loop].b, particle[loop].life);
+			glBegin(GL_TRIANGLE_STRIP);
+			glVertex3f(x + 0.5f, y + 0.5f, z);
+			glVertex3f(x - 0.5f, y + 0.5f, z);
+			glVertex3f(x + 0.5f, y - 0.5f, z);
+			glVertex3f(x - 0.5f, y - 0.5f, z);
+			glEnd();
+
+			particle[loop].x += particle[loop].xi / (slowDown * 1000);
+			particle[loop].y += particle[loop].yi / (slowDown * 1000);
+			particle[loop].z += particle[loop].zi / (slowDown * 1000);
+
+			particle[loop].xi += particle[loop].xg;
+			particle[loop].yi += particle[loop].yg;
+			particle[loop].zi += particle[loop].zg;
+
+			particle[loop].life -= particle[loop].fade;
+
+			if (particle[loop].life < 0.0f)
+			{
+				particle[loop].life = 1.0f;
+				particle[loop].fade = float(rand() % 100) / 1000 + 0.003f;
+
+				particle[loop].x = 0;
+				particle[loop].y = 0;
+				particle[loop].z = 0;
+
+				particle[loop].xi = xspeed + float((rand() % 60) - 32.0f);
+				particle[loop].yi = yspeed + float((rand() % 60) - 30.0f);
+				particle[loop].zi = float((rand() % 60) - 30.0f);
+
+			}
 		}
+	}*/
 
-		if (g > 1.0f)
-		{
-			r = float(rand() % 2) - 0.8;
-		}
-		if (r > 0.5f)
-		{
-			r = float(rand() % 2) - 0.3;
-		}
 
-		glColor4f(particle[i].red, particle[i].gree, particle[i].blue,particle[i].life);
-
-		glBegin(GL_TRIANGLE_STRIP);
-		glVertex2f(particle[i].x + 0.3, particle[i].y + 0.3);
-		glVertex2f(particle[i].x - 0.3, particle[i].y + 0.3);
-		glVertex2f(particle[i].x + 0.3, particle[i].y - 0.3);
-		glVertex2f(particle[i].x - 0.3, particle[i].y - 0.3);
-		glEnd();
-
-		glFlush();
-		
-		particle[i].red = r;
-		particle[i].gree = g;
-		particle[i].blue = b;
-
-		particle[i].x += particle[i].speedX;
-		particle[i].y += particle[i].speedY;
-		particle[i].life = 0.01f;
-
-	} while (i < 1000);
-
-	glutPostRedisplay();
+	glColor3f(1, 0, 0);
+	glBegin(GL_TRIANGLE_STRIP);
+	glVertex3f(0.5f, 0.5f, 0);
+	glVertex3f(- 0.5f, 0.5f, 0);
+	glVertex3f(0.5f, - 0.5f, 0);
+	glVertex3f(- 0.5f,  - 0.5f, 0);
+	glEnd();
+	glutSwapBuffers();
 }
 
-void main(int argc, char ** argv)
-{
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(500, 500);
-	glutCreateWindow("particle");
 
-	init();
+int main(int argc, char ** argv)
+{
+
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE|GLUT_DEPTH|GLUT_RGBA);
+	glutInitWindowSize(500, 500);
+	glutCreateWindow("Particles");
+
+	for (int i = 0; i < MAX_PARTICLES; i++)
+	{
+		particle[i].x = 0.0f;
+		particle[i].y = 0.0f;
+		particle[i].z = 0.0f;
+
+	}
+
+	xspeed = 0;
+	yspeed = 0;
+
+	if (!init())
+		return -1;
+
+	
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(render);
 	glutMainLoop();
 
+	return 0;
 }
+
+
