@@ -1,0 +1,7 @@
+﻿  main.cpp
+c:\users\devashish\source\repos\opengl-codes\practice_;opengl\header.h(22): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\devashish\source\repos\opengl-codes\practice_;opengl\header.h(28): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\devashish\source\repos\opengl-codes\practice_;opengl\header.h(30): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\devashish\source\repos\opengl-codes\practice_;opengl\main.cpp(70): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\devashish\source\repos\opengl-codes\practice_;opengl\main.cpp(88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  practice_;OPenGL.vcxproj -> C:\Users\Devashish\Source\Repos\OpenGL-Codes\practice_;OPenGL\Debug\practice_;OPenGL.exe
